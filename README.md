@@ -25,7 +25,7 @@ PP.pp parser.parse(txt)
 
 ```ruby
 # -*- coding: utf-8 -*-
-require "./lib/reina/ldix_loader.rb"
+require "reina/ldix_loader.rb"
 require "pp"
 require "stringio"
 
