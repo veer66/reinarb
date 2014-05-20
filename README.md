@@ -17,4 +17,4 @@ A toolset for Apertium written in Ruby
 
 	parser = Reina::StreamParser.new
 	PP.pp parser.parse(txt)
-	'''
+	```
