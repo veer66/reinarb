@@ -62,31 +62,32 @@ module Reina
     rule(:unk => /\/\*[^\$]+/)
 
     rule(:tags) do |r|
-      r[:tags, :tag].as {|tags, tag| 
+      r[:tags, :tag].as { |tags, tag| 
         tags + [tag]
       }
-      r[:tag].as {|t| [t[1..-2]]}
+      r[:tag].as { |t| [t[1..-2]] }
     end
     
     rule(:analysis) do |r|
-      r[:lemma, :tags].as {|lemma, tags| {tags: tags, lemma: lemma[1..-1]}}
+      r[:lemma, :tags].as { |lemma, tags| { tags: tags, lemma: lemma[1..-1] }}
     end
     
     rule(:analyses) do |r|
-      r[:analyses, :analysis].as {|analyses, analysis| analyses + [analysis]}
-      r[:analysis].as {|analysis| [analysis]}
+      r[:analyses, :analysis].as { |analyses, analysis| analyses + [analysis] }
+      r[:analysis].as { |analysis| [analysis] }
     end
 
     rule(:lu) do |r|
-      r[:surface, :analyses, :elu].as {|surface, analyses, _| 
-        AmbiLu.new(surface[1..-1], analyses)}
-      r[:surface, :unk, :elu].as {|surface, _, _| UnkLu.new(surface[1..-1])}
-      r[:text].as {|txt| NonLu.new(txt)}
+      r[:surface, :analyses, :elu].as { |surface, analyses, _| 
+        AmbiLu.new(surface[1..-1], analyses)
+      }
+      r[:surface, :unk, :elu].as { |surface, _, _| UnkLu.new(surface[1..-1]) }
+      r[:text].as { |txt| NonLu.new(txt) }
     end
     
     rule(:stream) do |r|
-      r[:stream, :lu].as {|lu_lst, lu| lu_lst + [lu]}
-      r[:lu].as {|lu| [lu]}
+      r[:stream, :lu].as { |lu_lst, lu| lu_lst + [lu] }
+      r[:lu].as { |lu| [lu] }
     end 
     start(:stream)
   end  
